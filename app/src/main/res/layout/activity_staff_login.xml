@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/grey"
+    android:layout_height="match_parent"
+    tools:context=".StaffLoginActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <ImageView
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="15dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/icon_staff"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:fontFamily="cursive"
+        android:text="@string/staff_login"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textAllCaps="true"
+        android:layout_marginBottom="10dp"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:typeface="normal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:fontFamily="casual"
+        android:text="@string/welcome"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:layout_marginBottom="5dp"
+        android:textStyle="bold"
+        android:typeface="normal" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:fontFamily="casual"
+        android:text="@string/please_sign_in_to_continue"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:typeface="normal" />
+
+    <EditText
+        android:id="@+id/edit_text_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/enter_email_address"
+        android:focusableInTouchMode="true"
+        android:textColorHint="@color/edit_text_color"
+        android:drawableStart="@drawable/ic_email_white_24dp"
+        android:inputType="textEmailAddress"
+        android:layout_gravity="center_horizontal"
+        android:maxLines="1"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:textColor="@color/text_color"
+        android:background="@drawable/edit_text_shape"
+        android:singleLine="true"/>
+
+    <EditText
+        android:id="@+id/edit_text_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_lock_white_24dp"
+        android:focusableInTouchMode="true"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:layout_marginTop="20dp"
+        android:layout_margin="30dp"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/text_color"
+        android:background="@drawable/edit_text_shape"
+        android:textColorHint="@color/edit_text_color" />
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@android:color/white"
+        android:background="@drawable/button_shape"/>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="25dp"
+        android:indeterminateTint="@color/blue"
+        android:visibility="gone" />
+
+    </LinearLayout>
+
+</ScrollView>

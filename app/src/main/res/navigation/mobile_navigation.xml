@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.ayusma.pharamacymanagementsystem.fragments.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_add_staff"
+        android:name="com.ayusma.pharamacymanagementsystem.fragments.AddStaffFragment"
+        android:label="@string/menu_add_staff"
+        tools:layout="@layout/fragment_add_staff" >
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_slideshow"
+        android:name="com.ayusma.pharamacymanagementsystem.fragments.SlideshowFragment"
+        android:label="@string/menu_slideshow"
+        tools:layout="@layout/fragment_slideshow" />
+
+    <fragment
+        android:id="@+id/nav_tools"
+        android:name="com.ayusma.pharamacymanagementsystem.fragments.ToolsFragment"
+        android:label="@string/menu_tools"
+        tools:layout="@layout/fragment_tools" />
+
+    <fragment
+        android:id="@+id/nav_category"
+        android:name="com.ayusma.pharamacymanagementsystem.fragments.CategoryFragment"
+        android:label="@string/menu_add_category"
+        tools:layout="@layout/fragment_category" />
+
+    <fragment
+        android:id="@+id/nav_add_drug"
+        android:name="com.ayusma.pharamacymanagementsystem.fragments.AddDrugFragment"
+        android:label="@string/menu_add_drug"
+        tools:layout="@layout/fragment_add_drug" />
+</navigation>

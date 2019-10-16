@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "43679355147",
+    "firebase_url": "https://pharamacy-management-system.firebaseio.com",
+    "project_id": "pharamacy-management-system",
+    "storage_bucket": "pharamacy-management-system.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:43679355147:android:a98db44a880ac8b201520e",
+        "android_client_info": {
+          "package_name": "com.ayusma.pharamacymanagementsystem"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "43679355147-2m19fhp98bed9pv74222uqtrjmhetf1l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ayusma.pharamacymanagementsystem",
+            "certificate_hash": "e6af42b1fe768dc2c32340c9eff1bb2114dc9cc3"
+          }
+        },
+        {
+          "client_id": "43679355147-grf7qmibbmhorn53t1kcsd0t3lmjf61f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwCTM4qpAwDQPxo-6-Mh5jq_Irz521KnU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "43679355147-grf7qmibbmhorn53t1kcsd0t3lmjf61f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
