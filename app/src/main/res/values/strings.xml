@@ -37,8 +37,5 @@
         <item>Widowed</item>
     </string-array>
 
-    <string-array name="age">
-        <item>1-100</item>
-    </string-array>
 
 </resources>

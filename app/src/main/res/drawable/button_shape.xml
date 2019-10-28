@@ -12,12 +12,11 @@
     </corners>
 
 
-
     <padding
-        android:top="0dp"
+        android:top="10dp"
         android:right="60dp"
         android:left="60dp"
-        android:bottom="0dp">
+        android:bottom="10dp">
     </padding>
 
 </shape>

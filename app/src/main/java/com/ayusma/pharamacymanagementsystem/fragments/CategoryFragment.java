@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,15 +21,19 @@ import com.ayusma.pharamacymanagementsystem.R;
 import com.ayusma.pharamacymanagementsystem.adapter.CategoryRecyclerViewAdapter;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CategoryFragment extends Fragment implements View.OnClickListener {
-    AlertDialog alertDialog;
-    String textCategoryName;
-    Button btnCreate;
+    private  AlertDialog alertDialog;
+    private String textCategoryName;
+    private Button btnCreate;
     private RecyclerView recyclerView;
     private FirebaseFirestore db;
+    private TextView textViewAddCategory;
+    private  List<String> categories = new ArrayList<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -37,12 +42,17 @@ public class CategoryFragment extends Fragment implements View.OnClickListener {
         db = FirebaseFirestore.getInstance();
 
          recyclerView = root.findViewById(R.id.recyclerView);
+         textViewAddCategory = root.findViewById(R.id.text_view_add_category);
+
+         categories.add("Parectamol");
+         categories.add("Asinlomabimn");
+         categories.add("potato level");
 
 
-        CategoryRecyclerViewAdapter recyclerViewAdapter = new CategoryRecyclerViewAdapter(operation.getAllSavedText());
+        CategoryRecyclerViewAdapter recyclerViewAdapter = new CategoryRecyclerViewAdapter(getContext(),categories);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         if (recyclerViewAdapter.getItemCount() == 0) {
-            textView.setVisibility(View.VISIBLE);
+            textViewAddCategory.setVisibility(View.VISIBLE);
         } else {
             recyclerView.setAdapter(recyclerViewAdapter);
         }
