@@ -38,15 +38,6 @@
                 android:background="@null"
                 android:src="@drawable/ic_delete_white_24dp"/>
 
-            <ImageButton
-                android:id="@+id/btn_delete_category"
-                android:layout_marginTop="10dp"
-                android:layout_width="0dp"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:src="@drawable/ic_edit_black_24dp"/>
 
             </LinearLayout>
 

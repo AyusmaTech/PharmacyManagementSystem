@@ -82,6 +82,21 @@
         android:background="@drawable/edit_text_shape_rec"
         android:layout_height="wrap_content"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:layout_marginStart="5dp"
+            android:text="Category"/>
+
+        <Spinner
+            android:id="@+id/spinner_status"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:entries="@array/marital_status"
+            android:spinnerMode="dropdown" />
+
     <TextView
         android:id="@+id/text_prod_date"
         android:layout_width="wrap_content"

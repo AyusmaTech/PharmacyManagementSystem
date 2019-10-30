@@ -1,23 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:padding="16sp"
+    android:background="@color/grey"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <TextView
+        android:id="@+id/text_view"
+        android:textColor="@android:color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Category Name"/>
 
     <EditText
+        android:layout_below="@id/text_view"
+        android:layout_marginTop="10dp"
         android:id="@+id/edit_text_category_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/edit_text_shape"
         android:inputType="text"
         android:hint="Enter Categpry name"/>
-
-
     <LinearLayout
+        android:layout_below="@id/edit_text_category_name"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -26,6 +33,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+            android:layout_gravity="center"
+            android:textColor="@android:color/white"
+            android:background="@drawable/add_button_shape"
         android:layout_marginTop="25dp"
         android:layout_margin="15dp"
         android:text="Cancel"/>
@@ -35,10 +45,23 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_gravity="center"
+            android:textColor="@android:color/white"
             android:layout_marginTop="25dp"
+            android:background="@drawable/add_button_shape"
             android:layout_margin="15dp"
             android:text="create category"/>
 
+
     </LinearLayout>
 
-</LinearLayout>
+
+    <ProgressBar
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:id="@+id/progress_bar"/>
+
+
+</RelativeLayout>
