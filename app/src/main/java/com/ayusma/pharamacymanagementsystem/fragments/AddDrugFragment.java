@@ -5,9 +5,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,20 +17,30 @@ import androidx.fragment.app.Fragment;
 
 import com.ayusma.pharamacymanagementsystem.AlertDialogHelper;
 import com.ayusma.pharamacymanagementsystem.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Calendar;
 
 public class AddDrugFragment extends Fragment implements DatePickerDialog.OnDateSetListener, View.OnClickListener {
     private EditText editTextName, editTextId, editTextManufacturer, editTextBatch, editTextProd, editTextExp, editTextDosage, editTextReg, editTextQuan, editTextCostP;
-    private ImageButton btnProd,btnReg,btnExp;
+    private ImageButton btnProd, btnReg, btnExp;
     private FirebaseFirestore db;
     private DatePickerDialog dpdProd, dpdExp, dpdReg;
+    private Spinner spinnerCategory;
     private Button btnSumbit;
     private int calType;
+    Map<String, Object> hashMap = new HashMap<>();
+    private String TAG = AddDrugFragment.class.getSimpleName();
+    private List<String> categoryList;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -51,6 +63,7 @@ public class AddDrugFragment extends Fragment implements DatePickerDialog.OnDate
         btnReg = root.findViewById(R.id.btn_reg_date);
         btnExp = root.findViewById(R.id.btn_exp_date);
         btnSumbit = root.findViewById(R.id.btn_submit);
+        spinnerCategory = root.findViewById(R.id.spinner_category);
 
         btnProd.setOnClickListener(this);
         btnExp.setOnClickListener(this);
@@ -77,12 +90,37 @@ public class AddDrugFragment extends Fragment implements DatePickerDialog.OnDate
                 now.get(Calendar.DAY_OF_MONTH)
         );
 
-        AlertDialogHelper.createAlertDialog(getContext(),"Adding drug....");
+        AlertDialogHelper.createAlertDialog(getContext(), "Adding drug....");
 
 
-
+        loadCategory();
 
         return root;
+    }
+
+    private void loadCategory() {
+        db.collection("category")
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    categoryList = new ArrayList<>();
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        categoryList.add(document.getId());
+                    }
+                    populateSpinner();
+                } else {
+                    Log.d(TAG, "Error getting documents.", task.getException());
+                    Toast.makeText(getContext(), "Error loading Categories,make sure you have a good connection", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+    }
+
+    private void populateSpinner() {
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, categoryList);
+        spinnerCategory.setAdapter(spinnerArrayAdapter);
     }
 
 
@@ -97,6 +135,14 @@ public class AddDrugFragment extends Fragment implements DatePickerDialog.OnDate
         String textReg = editTextReg.getText().toString().trim();
         String textQuan = editTextQuan.getText().toString().trim();
         String textCostP = editTextCostP.getText().toString().trim();
+        String textCategory;
+        if (spinnerCategory.getSelectedItem() != null) {
+            textCategory = spinnerCategory.getSelectedItem().toString();
+        } else {
+            Toast.makeText(getContext(), "Select Drug Category: Make sure you have a good connection to load categories,or go to the category section if you havent created one", Toast.LENGTH_LONG).show();
+            return;
+        }
+
 
         if (textName.isEmpty()) {
             editTextName.setError("Enter a Drug Name");
@@ -167,6 +213,7 @@ public class AddDrugFragment extends Fragment implements DatePickerDialog.OnDate
         drug.put("expiryDate", textExp);
         drug.put("registrationDate", textReg);
         drug.put("Dosage", textDosage);
+        drug.put("Category", textCategory);
         drug.put("Quantity", textQuan);
         drug.put("costPrice", textCostP);
 
@@ -175,20 +222,25 @@ public class AddDrugFragment extends Fragment implements DatePickerDialog.OnDate
                 .addOnSuccessListener(documentReference -> {
                     btnSumbit.setEnabled(true);
                     AlertDialogHelper.hideDialog();
-                    Toast.makeText(getContext(),"DocumentSnapshot added with ID: " + documentReference.getId(),Toast.LENGTH_SHORT).show();
+                    editTextName.setText("");
+                    editTextId.setText("");
+                    editTextManufacturer.setText("");
+                    editTextBatch.setText("");
+                    editTextProd.setText("");
+                    editTextExp.setText("");
+                    editTextDosage.setText("");
+                    editTextReg.setText("");
+                    editTextQuan.setText("");
+                    editTextCostP.setText("");
+                    Toast.makeText(getContext(), "Drug Added Successfully", Toast.LENGTH_SHORT).show();
                     Log.d("TAG", "DocumentSnapshot added with ID: " + documentReference.getId());
                 })
                 .addOnFailureListener(e -> {
                     AlertDialogHelper.hideDialog();
                     btnSumbit.setEnabled(true);
-                    Toast.makeText(getContext(),"Error adding document "+e.getMessage(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Error adding drug " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     Log.w("TAG", "Error adding document", e);
                 });
-
-
-
-
-
 
 
     }
@@ -220,13 +272,14 @@ public class AddDrugFragment extends Fragment implements DatePickerDialog.OnDate
             case R.id.btn_submit:
                 addDrug();
                 break;
+
         }
     }
 
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-        String date = dayOfMonth+"/"+(monthOfYear+1)+"/"+year;
-        switch (calType){
+        String date = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
+        switch (calType) {
             case 1:
                 editTextProd.setText(date);
                 break;

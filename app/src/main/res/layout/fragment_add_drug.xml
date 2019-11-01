@@ -90,11 +90,10 @@
             android:text="Category"/>
 
         <Spinner
-            android:id="@+id/spinner_status"
+            android:id="@+id/spinner_category"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:entries="@array/marital_status"
             android:spinnerMode="dropdown" />
 
     <TextView

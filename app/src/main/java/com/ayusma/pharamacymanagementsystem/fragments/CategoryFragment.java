@@ -20,8 +20,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ayusma.pharamacymanagementsystem.AlertDialogHelper;
 import com.ayusma.pharamacymanagementsystem.R;
 import com.ayusma.pharamacymanagementsystem.adapter.CategoryRecyclerViewAdapter;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -103,17 +107,18 @@ public class CategoryFragment extends Fragment implements View.OnClickListener {
                 }else {
                     progressBar.setVisibility(View.VISIBLE);
                     Map<String, Object> category = new HashMap<>();
-                    category.put("categoryName",textCategoryName);
-                    categoryName.setText("");
+                    category.put(textCategoryName,true);
                     btnCreate.setEnabled(false);
-                    db.collection("category")
-                            .add(category)
+                    db.collection("category").document(textCategoryName)
+                            .set(category)
                             .addOnSuccessListener(documentReference -> {
                                 btnCreate.setEnabled(true);
+                                categoryName.setText("");
                                 progressBar.setVisibility(View.GONE);
+                                alertDialog.hide();
 //                                AlertDialogHelper.hideDialog();
                                 Toast.makeText(getContext(),"Category Created Successfully",Toast.LENGTH_LONG).show();
-                                Log.d("TAG", "DocumentSnapshot added with ID: " + documentReference.getId());
+                               // Log.d("TAG", "DocumentSnapshot added with ID: " + documentReference.toString());
                             })
                             .addOnFailureListener(e -> {
                                 AlertDialogHelper.hideDialog();
@@ -130,3 +135,4 @@ public class CategoryFragment extends Fragment implements View.OnClickListener {
 
     }
 }
+

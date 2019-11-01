@@ -11,23 +11,27 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity
-            android:name=".AdminMainActivity"
-            android:label="@string/title_activity_admin_main"
-            android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".DrugState"></activity>
+        <activity android:name=".ManageDrugs">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".StoreActivity">
+
+        </activity>
+        <activity
+            android:name=".AdminMainActivity"
+            android:label="@string/title_activity_admin_main"
+            android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
         <activity android:name=".StaffLoginActivity" />
         <activity android:name=".SupervisorLoginActivity" />
         <activity android:name=".AdminLoginActivity" />
-        <activity android:name=".MainActivity">
-
-        </activity>
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

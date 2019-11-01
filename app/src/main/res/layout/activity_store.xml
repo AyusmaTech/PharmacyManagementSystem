@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/grey"
+    android:layout_height="match_parent"
+    tools:context=".StoreActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:layout_marginStart="5dp"
+        android:text="Category"/>
+
+    <Spinner
+        android:id="@+id/spinner_category"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:spinnerMode="dropdown" />
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:layout_marginStart="5dp"
+        android:text="Drug Name"/>
+
+    <Spinner
+        android:id="@+id/spinner_name"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:spinnerMode="dropdown" />
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:layout_marginStart="5dp"
+            android:text="Drug ID:"/>
+
+        <EditText
+          android:layout_weight="4"
+            android:id="@+id/edit_text_drug_id"
+            android:layout_width="0dp"
+            android:background="@drawable/edit_text_shape_rec"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:padding="16dp"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="5dp"
+            android:layout_margin="10dp"
+            android:inputType="none"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:layout_marginStart="5dp"
+            android:text="Drug Name:"/>
+
+        <EditText
+            android:layout_weight="4"
+            android:id="@+id/edit_text_drug_name"
+            android:layout_width="0dp"
+            android:textColor="@android:color/black"
+            android:background="@drawable/edit_text_shape_rec"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:padding="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_margin="10dp"
+            android:inputType="none"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:layout_marginStart="5dp"
+            android:text="Dosage:"/>
+
+        <EditText
+            android:layout_weight="4"
+            android:id="@+id/edit_text_drug_dosage"
+            android:layout_width="0dp"
+            android:textColor="@android:color/black"
+            android:background="@drawable/edit_text_shape_rec"
+            android:singleLine="true"
+            android:padding="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_margin="10dp"
+            android:inputType="none"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:layout_marginStart="5dp"
+            android:text="Available Quantity:"/>
+
+        <EditText
+            android:layout_weight="4"
+            android:id="@+id/edit_text_drug_quantity"
+            android:layout_width="0dp"
+            android:textColor="@android:color/black"
+            android:background="@drawable/edit_text_shape_rec"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:padding="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_margin="10dp"
+            android:inputType="none"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:layout_marginStart="5dp"
+            android:text="Price:"/>
+
+        <EditText
+            android:layout_weight="4"
+            android:id="@+id/edit_drug_text_price"
+            android:layout_width="0dp"
+            android:textColor="@android:color/black"
+            android:background="@drawable/edit_text_shape_rec"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:padding="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_margin="10dp"
+            android:inputType="none"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:layout_marginStart="5dp"
+            android:text="Expiry Date:"/>
+
+        <EditText
+            android:layout_weight="4"
+            android:id="@+id/edit_text_exp_date"
+            android:layout_width="0dp"
+            android:textColor="@android:color/black"
+            android:background="@drawable/edit_text_shape_rec"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:padding="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_margin="10dp"
+            android:inputType="none"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:text="PURCHASE"
+            android:textAllCaps="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textColor="@android:color/black"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:layout_marginStart="5dp"
+            android:text="Enter Quantity to be sold:"/>
+
+        <EditText
+            android:layout_weight="4"
+            android:id="@+id/edit_text_drug_quanitiy_sold"
+            android:layout_width="0dp"
+            android:background="@drawable/edit_text_shape_rec"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:padding="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_margin="10dp"
+            android:inputType="number"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:layout_marginStart="5dp"
+            android:text="Amount:"/>
+
+        <EditText
+            android:layout_weight="4"
+            android:id="@+id/edit_text_amount"
+            android:layout_width="0dp"
+            android:textColor="@android:color/black"
+            android:background="@drawable/edit_text_shape_rec"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:padding="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_margin="10dp"
+            android:inputType="none"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_sell"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:background="@drawable/button_shape"
+        android:textColor="@android:color/white"
+        android:text="Sell"/>
+
+    </LinearLayout>
+
+
+
+
+</ScrollView>
