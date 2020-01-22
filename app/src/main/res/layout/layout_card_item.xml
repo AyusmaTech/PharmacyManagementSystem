@@ -30,7 +30,7 @@
                 android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/btn_rename_category"
+                android:id="@+id/btn_delete_category"
                 android:layout_margin="10dp"
                 android:layout_width="0dp"
                 android:layout_weight="1"

@@ -42,20 +42,22 @@ public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRe
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String category = mCategories.get(position);
-
-
         holder.textViewCategory.setText(category);
+        holder.btnDelete.setOnClickListener(view -> {
+
+        });
+
     }
 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView textViewCategory;
-        ImageView btnDelete, btnRename;
+         ImageView btnDelete;
 
         ViewHolder(View itemView) {
             super(itemView);
             textViewCategory = itemView.findViewById(R.id.text_view_category_name);
-            btnRename = itemView.findViewById(R.id.btn_rename_category);
+            btnDelete = itemView.findViewById(R.id.btn_delete_category);
 
 
 

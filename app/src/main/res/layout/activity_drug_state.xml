@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,6 +7,11 @@
     android:background="@color/grey"
     android:orientation="vertical"
     tools:context=".DrugState">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <TextView
         android:layout_marginTop="20dp"
@@ -21,7 +26,6 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:entries="@array/marital_status"
         android:spinnerMode="dropdown" />
 
     <TextView
@@ -37,7 +41,6 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:entries="@array/marital_status"
         android:spinnerMode="dropdown" />
 
     <LinearLayout
@@ -62,6 +65,7 @@
             android:singleLine="true"
             android:padding="16dp"
             android:layout_marginTop="5dp"
+            android:textColor="@android:color/black"
             android:layout_margin="10dp"
             android:editable="false"
             android:inputType="number"
@@ -90,6 +94,7 @@
             android:maxLines="1"
             android:singleLine="true"
             android:padding="16dp"
+            android:textColor="@android:color/black"
             android:editable="false"
             android:layout_marginTop="5dp"
             android:layout_margin="10dp"
@@ -117,6 +122,7 @@
             android:layout_width="0dp"
             android:background="@drawable/edit_text_shape_rec"
             android:maxLines="1"
+            android:textColor="@android:color/black"
             android:singleLine="true"
             android:padding="16dp"
             android:layout_marginTop="5dp"
@@ -146,6 +152,7 @@
             android:layout_width="0dp"
             android:background="@drawable/edit_text_shape_rec"
             android:maxLines="1"
+            android:textColor="@android:color/black"
             android:singleLine="true"
             android:padding="16dp"
             android:layout_marginTop="5dp"
@@ -156,6 +163,7 @@
 
     </LinearLayout>
 
+    </LinearLayout>
 
 
-</LinearLayout>
+</ScrollView>

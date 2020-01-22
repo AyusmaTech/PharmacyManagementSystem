@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/grey"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_margin="10dp"
+        android:id="@+id/first_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    <com.google.android.material.card.MaterialCardView
+        app:cardElevation="10dp"
+        android:id="@+id/card_view_goto_store"
+        app:cardCornerRadius="10dp"
+        android:layout_weight="1"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="10dp"
+        android:layout_width="0dp"
+        android:layout_height="150dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Goto Store"
+            android:textAllCaps="true"
+            android:textColor="@color/blue"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        app:cardElevation="10dp"
+        app:cardCornerRadius="10dp"
+        android:layout_weight="1"
+        android:textColor="@color/blue"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/card_view_view_drugs"
+        android:layout_margin="10dp"
+        android:layout_width="0dp"
+        android:layout_height="150dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Manage Drugs"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textColor="@color/blue"
+            android:textStyle="bold"
+            android:textAllCaps="true" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/second_linear_layout"
+        android:layout_margin="10dp"
+        android:layout_below="@id/first_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    <com.google.android.material.card.MaterialCardView
+        app:cardElevation="10dp"
+        android:layout_weight="1"
+        app:cardCornerRadius="10dp"
+        android:layout_margin="10dp"
+        android:id="@+id/card_view_view_staff"
+        android:layout_width="0dp"
+        android:layout_height="150dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/blue"
+            android:textAllCaps="true"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:text="View Staff"/>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        app:cardElevation="10dp"
+        app:cardCornerRadius="10dp"
+        android:layout_weight="1"
+        android:id="@+id/card_view_view_sales"
+        android:layout_margin="10dp"
+        android:layout_width="0dp"
+        android:layout_height="150dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:textColor="@color/blue"
+            android:textAllCaps="true"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:text="View Sales"/>
+
+    </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        app:cardElevation="10dp"
+        android:id="@+id/card_view_drug_state"
+        android:layout_below="@id/second_linear_layout"
+        app:cardCornerRadius="10dp"
+        android:layout_margin="10dp"
+        android:textColor="@color/blue"
+        android:layout_gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            android:textColor="@color/blue"
+            android:text="Drug State"/>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+</RelativeLayout>

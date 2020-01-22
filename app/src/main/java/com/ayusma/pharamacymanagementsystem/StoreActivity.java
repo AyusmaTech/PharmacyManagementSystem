@@ -157,23 +157,20 @@ public class StoreActivity extends AppCompatActivity implements AdapterView.OnIt
     private void loadCategory() {
         AlertDialogHelper.showDialog();
         db.collection("category")
-                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    categoryList = new ArrayList<>();
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        categoryList.add(document.getId());
-                    }
-                    populateSpinnerCategory();
-                    loadNames();
+                .get().addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        categoryList = new ArrayList<>();
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            categoryList.add(document.getId());
+                        }
+                        populateSpinnerCategory();
+                        loadNames();
 
-                } else {
-                    Log.d(TAG, "Error getting documents.", task.getException());
-                    Toast.makeText(getApplicationContext(), "Error loading Categories,make sure you have a good connection", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
+                    } else {
+                        Log.d(TAG, "Error getting documents.", task.getException());
+                        Toast.makeText(getApplicationContext(), "Error loading Categories,make sure you have a good connection", Toast.LENGTH_LONG).show();
+                    }
+                });
 
     }
 
@@ -219,12 +216,14 @@ public class StoreActivity extends AppCompatActivity implements AdapterView.OnIt
     }
 
     public void populateEditText() {
-        editTextDrugName.setText(drugName.get(spinnerDrug.getSelectedItemPosition()));
-        editTextPrice.setText(price.get(spinnerDrug.getSelectedItemPosition()));
-        editTextExpiry.setText(expiry.get(spinnerDrug.getSelectedItemPosition()));
-        editTextDoage.setText(dosage.get(spinnerDrug.getSelectedItemPosition()));
-        editTextQuantity.setText(quantity.get(spinnerDrug.getSelectedItemPosition()));
-        editTextDrugId.setText(String.valueOf(drugId.get(spinnerDrug.getSelectedItemPosition())));
+        if(drugName.size() != 0) {
+            editTextDrugName.setText(drugName.get(spinnerDrug.getSelectedItemPosition()));
+            editTextPrice.setText(price.get(spinnerDrug.getSelectedItemPosition()));
+            editTextExpiry.setText(expiry.get(spinnerDrug.getSelectedItemPosition()));
+            editTextDoage.setText(dosage.get(spinnerDrug.getSelectedItemPosition()));
+            editTextQuantity.setText(quantity.get(spinnerDrug.getSelectedItemPosition()));
+            editTextDrugId.setText(String.valueOf(drugId.get(spinnerDrug.getSelectedItemPosition())));
+        }
 
 
     }

@@ -1,6 +1,7 @@
 package com.ayusma.pharamacymanagementsystem.fragments;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
@@ -19,10 +20,16 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.ayusma.pharamacymanagementsystem.AdminLoginActivity;
 import com.ayusma.pharamacymanagementsystem.AlertDialogHelper;
 import com.ayusma.pharamacymanagementsystem.R;
+import com.ayusma.pharamacymanagementsystem.SupervisorLoginActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
@@ -34,16 +41,17 @@ import java.util.List;
 import java.util.Map;
 
 
-public class AddStaffFragment extends Fragment  implements DatePickerDialog.OnDateSetListener {
-    private EditText editTextName,editTextId,editTextAddress,editTextNationality,editTextOrigin,editTextMobile,editTextEmail,editTextPassword,editTextDateEmployed;
+public class AddStaffFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
+    private EditText editTextName, editTextId, editTextAddress, editTextNationality, editTextOrigin, editTextMobile, editTextEmail, editTextPassword, editTextDateEmployed;
     private Spinner spinnerAge, spinnerStatus;
     private RadioGroup radioGroupSex, radioGroupAccessLevel;
-    private RadioButton radioButtonSex,radioButtonAccessLevl;
+    private RadioButton radioButtonSex, radioButtonAccessLevl;
     private FirebaseFirestore db;
     private Button btnAddStaff;
     private ImageButton btnDateEmp;
     private DatePickerDialog dpdPEmployed;
     private View root;
+    private FirebaseAuth firebaseAuth;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -52,6 +60,7 @@ public class AddStaffFragment extends Fragment  implements DatePickerDialog.OnDa
         root = inflater.inflate(R.layout.fragment_add_staff, container, false);
 
         db = FirebaseFirestore.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
 
         editTextName = root.findViewById(R.id.edit_text_staff_name);
         editTextId = root.findViewById(R.id.edit_text_reg_id);
@@ -72,15 +81,14 @@ public class AddStaffFragment extends Fragment  implements DatePickerDialog.OnDa
 
         List<Integer> age = new ArrayList<>();
 
-        for(int i = 1; i <= 100; i++){
+        for (int i = 1; i <= 100; i++) {
             age.add(i);
         }
 
-        ArrayAdapter<Integer> spinnerArrayAdapter = new ArrayAdapter<>(root.getContext(),android.R.layout.simple_spinner_item,age);
+        ArrayAdapter<Integer> spinnerArrayAdapter = new ArrayAdapter<>(root.getContext(), android.R.layout.simple_spinner_item, age);
         spinnerAge.setAdapter(spinnerArrayAdapter);
 
-        AlertDialogHelper.createAlertDialog(getContext(),"Creating Staff");
-
+        AlertDialogHelper.createAlertDialog(getContext(), "Creating Staff");
 
 
         btnAddStaff.setOnClickListener(view -> addStaff());
@@ -94,12 +102,10 @@ public class AddStaffFragment extends Fragment  implements DatePickerDialog.OnDa
         );
 
 
-
-
         return root;
     }
 
-    private void addStaff(){
+    private void addStaff() {
         String textStaffName = editTextName.getText().toString().trim();
         String textStaffId = editTextId.getText().toString().trim();
         String textStaffAddress = editTextAddress.getText().toString().trim();
@@ -114,7 +120,6 @@ public class AddStaffFragment extends Fragment  implements DatePickerDialog.OnDa
         String textStaffSex, textStaffAccessLevel;
         radioButtonAccessLevl = root.findViewById(radioGroupAccessLevel.getCheckedRadioButtonId());
         radioButtonSex = root.findViewById(radioGroupSex.getCheckedRadioButtonId());
-
 
 
         if (textStaffName.isEmpty()) {
@@ -190,19 +195,18 @@ public class AddStaffFragment extends Fragment  implements DatePickerDialog.OnDa
         }
 
         if (radioButtonSex == null) {
-            Toast.makeText(getContext(),"Select a Sex",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Select a Sex", Toast.LENGTH_SHORT).show();
             return;
-        }else {
+        } else {
             textStaffSex = radioButtonSex.getText().toString();
         }
 
         if (radioButtonAccessLevl == null) {
-            Toast.makeText(getContext(),"Select an Access Level",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Select an Access Level", Toast.LENGTH_SHORT).show();
             return;
-        }else {
+        } else {
             textStaffAccessLevel = radioButtonAccessLevl.getText().toString();
         }
-
 
 
         btnAddStaff.setEnabled(false);
@@ -223,40 +227,51 @@ public class AddStaffFragment extends Fragment  implements DatePickerDialog.OnDa
         staffDetails.put("sex", textStaffSex);
 
 
-
         db.collection("staff")
                 .add(staffDetails)
                 .addOnSuccessListener(documentReference -> {
-                    AlertDialogHelper.hideDialog();
-                    btnAddStaff.setEnabled(true);
-                    Toast.makeText(getContext(),"DocumentSnapshot added with ID: " + documentReference.getId(),Toast.LENGTH_SHORT).show();
-                    Log.d("TAG", "DocumentSnapshot added with ID: " + documentReference.getId());
+                    authenticate(textStaffEmail, textStaffPassword);
+                    // Toast.makeText(getContext(), "DocumentSnapshot added with ID: " + documentReference.getId(), Toast.LENGTH_SHORT).show();
+                    // Log.d("TAG", "DocumentSnapshot added with ID: " + documentReference.getId());
                 })
                 .addOnFailureListener(e -> {
                     AlertDialogHelper.hideDialog();
                     btnAddStaff.setEnabled(true);
-                    Toast.makeText(getContext(),"Error adding document "+e.getMessage(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Account Creation  Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     Log.w("TAG", "Error adding document", e);
                 });
 
 
+    }
+
+    private void authenticate(String email, String password) {
+        firebaseAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        AlertDialogHelper.hideDialog();
+                        btnAddStaff.setEnabled(true);
+                        Toast.makeText(getContext(), " Account Created Successfully", Toast.LENGTH_SHORT).show();
+                        firebaseAuth.signOut();
+                        startActivity(new Intent(getContext(), AdminLoginActivity.class));
+                        Toast.makeText(getContext(), "Please login again to continue", Toast.LENGTH_SHORT).show();
+                        getActivity().overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
 
 
+                    }
 
-
-
-
-
-
-
-
+                }).addOnFailureListener(e -> {
+            AlertDialogHelper.hideDialog();
+            btnAddStaff.setEnabled(true);
+            Toast.makeText(getContext(), "Account Creation  Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        });
 
     }
 
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-        String date = dayOfMonth+"/"+(monthOfYear+1)+"/"+year;
+        String date = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
         editTextDateEmployed.setText(date);
 
     }
+
 }

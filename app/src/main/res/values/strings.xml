@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Pharamacy Management System</string>
+    <string name="app_name">Pharmacy Management System</string>
     <string name="admin">admin</string>
     <string name="admin_login">Administrator Login</string>
     <string name="supervisor">Supervisor</string>
@@ -30,7 +30,14 @@
     <string name="menu_add_category">Add Category</string>
     <string name="menu_add_drug">Add Drug</string>
     <string name="delete_notice">Are you sure you want to delete this drug,clicking on the yes button will remove this drug permanently from the databse</string>
+    <string name="logout">Logout</string>
 
+    <string name="title_activity_supervisor_main">SupervisorMainActivity</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_send">Send</string>
+    <string name="title_activity_staff_main">StaffMainActivity</string>
+    <string name="store">Store</string>
     <string-array name="marital_status">
         <item>Single</item>
         <item>Married</item>

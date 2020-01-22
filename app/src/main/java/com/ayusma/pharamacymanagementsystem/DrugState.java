@@ -1,8 +1,10 @@
 package com.ayusma.pharamacymanagementsystem;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,9 +17,17 @@ import android.widget.Toast;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class DrugState extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private String TAG = DrugState.class.getSimpleName();
@@ -47,12 +57,18 @@ public class DrugState extends AppCompatActivity implements AdapterView.OnItemSe
         spinnerCategory = findViewById(R.id.spinner_category);
         spinnerDrug = findViewById(R.id.spinner_name);
         editTextDrugId = findViewById(R.id.edit_text_drug_id);
+        editTextDrugId.setEnabled(false);
         editTextExpiry = findViewById(R.id.edit_text_exp_date);
+        editTextExpiry.setEnabled(false);
         editTextQuantity = findViewById(R.id.edit_text_drug_available_quanitiy);
+        editTextQuantity.setEnabled(false);
         editTextDaysLeft = findViewById(R.id.edit_text_days_left);
+        editTextDaysLeft.setEnabled(false);
 
         spinnerCategory.setOnItemSelectedListener(this);
         spinnerDrug.setOnItemSelectedListener(this);
+
+        AlertDialogHelper.createAlertDialog(this,"");
 
         loadCategory();
 
@@ -121,11 +137,42 @@ public class DrugState extends AppCompatActivity implements AdapterView.OnItemSe
 
     public void populateEditText() {
        // editTextPrice.setText(price.get(spinnerDrug.getSelectedItemPosition()));
-        editTextExpiry.setText(expiry.get(spinnerDrug.getSelectedItemPosition()));
-        editTextQuantity.setText(quantity.get(spinnerDrug.getSelectedItemPosition()));
-        editTextDrugId.setText(String.valueOf(drugId.get(spinnerDrug.getSelectedItemPosition())));
+        if(drugId.size() != 0) {
+            editTextExpiry.setText(expiry.get(spinnerDrug.getSelectedItemPosition()));
+            editTextQuantity.setText(quantity.get(spinnerDrug.getSelectedItemPosition()));
+            editTextDrugId.setText(String.valueOf(drugId.get(spinnerDrug.getSelectedItemPosition())));
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+            Calendar today = Calendar.getInstance();
+            today.set(Calendar.HOUR_OF_DAY,0);
+            try {
+               Date day = dateFormat.parse(expiry.get(spinnerDrug.getSelectedItemPosition()));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                   long days =  betweenDates(day,today.getTime());
+                    editTextDaysLeft.setText((String.valueOf((int) days)));
+                }else {
+                    long days = getDifferenceDays(day,today.getTime());
+                    editTextDaysLeft.setText((String.valueOf((int) days)));
+                }
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
 
 
+
+
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public long betweenDates(java.util.Date firstdate, java.util.Date secondDate){
+        return ChronoUnit.DAYS.between(firstdate.toInstant(),secondDate.toInstant());
+    }
+
+    public  long getDifferenceDays(java.util.Date date1, java.util.Date date2){
+        long diff = date1.getTime() - date2.getTime();
+        return TimeUnit.DAYS.convert(diff,TimeUnit.MILLISECONDS);
     }
 
     @Override

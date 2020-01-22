@@ -18,7 +18,8 @@
         app:cardElevation="10dp">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
@@ -26,8 +27,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Administrator"
+                android:layout_gravity="center"
+                android:textSize="18sp"
                 android:textColor="@android:color/black"
                 android:textAllCaps="true"/>
+
+            <ImageView
+                android:layout_gravity="center"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/icon_admin"/>
 
 
         </LinearLayout>
@@ -44,19 +53,29 @@
         app:cardElevation="10dp">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Supervisor"
+android:layout_gravity="center"
+                android:textSize="18sp"
+
+                android:textAllCaps="true"
+                android:textColor="@android:color/black" />
+
+            <ImageView
+                android:layout_gravity="center"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/icon_supervisor"/>
         </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Administrator"
-            android:textAllCaps="true"
-            android:textColor="@android:color/black" />
 
     </com.google.android.material.card.MaterialCardView>
 
@@ -70,19 +89,29 @@
         app:cardElevation="10dp">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Administrator"
-                android:textColor="@android:color/black"
-                android:textAllCaps="true"/>
+                android:text="Staff"
+                android:layout_gravity="center"
+                android:textAllCaps="true"
+                android:textSize="18sp"
+                android:textColor="@android:color/black" />
 
-
+            <ImageView
+                android:layout_gravity="center"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/icon_staff"/>
         </LinearLayout>
+
+
 
     </com.google.android.material.card.MaterialCardView>
 

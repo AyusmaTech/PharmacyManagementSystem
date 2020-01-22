@@ -14,18 +14,16 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ayusma.pharamacymanagementsystem.AlertDialogHelper;
 import com.ayusma.pharamacymanagementsystem.R;
 import com.ayusma.pharamacymanagementsystem.adapter.CategoryRecyclerViewAdapter;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,6 +39,7 @@ public class CategoryFragment extends Fragment implements View.OnClickListener {
     private FirebaseFirestore db;
     private ProgressBar progressBar;
     private TextView textViewAddCategory;
+    private String TAG = CategoryFragment.class.getSimpleName();
     private  List<String> categories = new ArrayList<>();
     private View addCategory;
 
@@ -54,18 +53,10 @@ public class CategoryFragment extends Fragment implements View.OnClickListener {
          textViewAddCategory = root.findViewById(R.id.text_view_add_category);
          floatingActionButton = root.findViewById(R.id.fab_create_category);
 
-         categories.add("Parectamol");
-         categories.add("Asinlomabimn");
-         categories.add("potato level");
+  AlertDialogHelper.createAlertDialog(getContext(),"");
 
 
-        CategoryRecyclerViewAdapter recyclerViewAdapter = new CategoryRecyclerViewAdapter(getContext(),categories);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        if (recyclerViewAdapter.getItemCount() == 0) {
-            textViewAddCategory.setVisibility(View.VISIBLE);
-        } else {
-            recyclerView.setAdapter(recyclerViewAdapter);
-        }
+
 
 
         addCategory = View.inflate(getContext(),R.layout.layout_add_category,null);
@@ -85,7 +76,7 @@ public class CategoryFragment extends Fragment implements View.OnClickListener {
         });
 
 
-
+loadCategory();
 
 
 
@@ -118,6 +109,7 @@ public class CategoryFragment extends Fragment implements View.OnClickListener {
                                 alertDialog.hide();
 //                                AlertDialogHelper.hideDialog();
                                 Toast.makeText(getContext(),"Category Created Successfully",Toast.LENGTH_LONG).show();
+                                refresh();
                                // Log.d("TAG", "DocumentSnapshot added with ID: " + documentReference.toString());
                             })
                             .addOnFailureListener(e -> {
@@ -133,6 +125,44 @@ public class CategoryFragment extends Fragment implements View.OnClickListener {
 
         }
 
+    }
+
+    private void loadCategory() {
+        AlertDialogHelper.showDialog();
+        db.collection("category")
+                .get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    categories.add(document.getId());
+                }
+                populateRecyclerView();
+
+
+            } else {
+                Log.d(TAG, "Error getting documents.", task.getException());
+                Toast.makeText(getContext(), "Error loading Categories,make sure you have a good connection", Toast.LENGTH_LONG).show();
+            }
+        });
+
+    }
+
+    private void populateRecyclerView(){
+        CategoryRecyclerViewAdapter recyclerViewAdapter = new CategoryRecyclerViewAdapter(getContext(),categories);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        if (recyclerViewAdapter.getItemCount() == 0) {
+            textViewAddCategory.setVisibility(View.VISIBLE);
+        } else {
+            recyclerView.setAdapter(recyclerViewAdapter);
+        }
+        AlertDialogHelper.hideDialog();
+    }
+
+    public void refresh(){
+        Fragment currentFragment = getFragmentManager().findFragmentById(R.id.nav_host_fragment);
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.detach(currentFragment);
+        fragmentTransaction.attach(currentFragment);
+        fragmentTransaction.commit();
     }
 }
 

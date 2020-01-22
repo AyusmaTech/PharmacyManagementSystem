@@ -15,11 +15,13 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
     private MaterialCardView cardViewAdmin, cardViewSupervisor, cardViewStaff;
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mAuth = FirebaseAuth.getInstance();
 
         cardViewAdmin = findViewById(R.id.card_view_admin);
         cardViewSupervisor = findViewById(R.id.card_view_supervisor);
@@ -46,5 +48,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
 
 }

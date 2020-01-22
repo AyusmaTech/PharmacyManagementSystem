@@ -144,10 +144,12 @@ public class ManageDrugs extends AppCompatActivity implements AdapterView.OnItem
     }
 
     public void populateEditText() {
-        editTextPrice.setText(price.get(spinnerDrug.getSelectedItemPosition()));
-        editTextExpiry.setText(expiry.get(spinnerDrug.getSelectedItemPosition()));
-        editTextQuantity.setText(quantity.get(spinnerDrug.getSelectedItemPosition()));
-        editTextDrugId.setText(String.valueOf(drugId.get(spinnerDrug.getSelectedItemPosition())));
+        if(drugId.size()!= 0) {
+            editTextPrice.setText(price.get(spinnerDrug.getSelectedItemPosition()));
+            editTextExpiry.setText(expiry.get(spinnerDrug.getSelectedItemPosition()));
+            editTextQuantity.setText(quantity.get(spinnerDrug.getSelectedItemPosition()));
+            editTextDrugId.setText(String.valueOf(drugId.get(spinnerDrug.getSelectedItemPosition())));
+        }
 
 
     }
@@ -197,13 +199,13 @@ public class ManageDrugs extends AppCompatActivity implements AdapterView.OnItem
 
         restockButton.setEnabled(false);
         AlertDialogHelper.showDialog();
-
+        int id = spinnerDrug.getSelectedItemPosition();
         DocumentReference documentReference = db.collection("drugs")
                 .document(ids.get(spinnerDrug.getSelectedItemPosition()));
         documentReference.update(hashMap)
                 .addOnSuccessListener(aVoid -> {
                     AlertDialogHelper.hideDialog();
-                    editTextPrice.setText("");
+                    editTextQuantity.setText("");
                     restockButton.setEnabled(true);
                     Toast.makeText(getApplicationContext(), "Quantity Updated Successfully", Toast.LENGTH_LONG).show();
                     load = 0;
@@ -223,28 +225,35 @@ public class ManageDrugs extends AppCompatActivity implements AdapterView.OnItem
         builder.setTitle("Delete");
         builder.setMessage(R.string.delete_notice);
         builder.setPositiveButton("Yes", (dialogInterface, i) -> {
-            deleteButton.setEnabled(false);
-            AlertDialogHelper.showDialog();
-            DocumentReference documentReference = db.collection("drugs")
-                    .document(ids.get(spinnerDrug.getSelectedItemPosition()));
-            documentReference.delete()
-                    .addOnSuccessListener(aVoid -> {
-                        deleteButton.setEnabled(true);
-                        ids.remove(spinnerDrug.getSelectedItemPosition());
-                        categoryList.remove(spinnerDrug.getSelectedItemPosition());
-                        drugName.remove(spinnerDrug.getSelectedItemPosition());
-                        spinnerArrayCategoryAdapter.notifyDataSetChanged();
-                        spinnerArrayNameAdapter.notifyDataSetChanged();
-                        AlertDialogHelper.hideDialog();
-                        recreate();
-                        Toast.makeText(getApplicationContext(), "Drug deleted", Toast.LENGTH_LONG).show();
+            if(spinnerDrug.getSelectedItemPosition() != -1) {
+                deleteButton.setEnabled(false);
+                AlertDialogHelper.showDialog();
+                DocumentReference documentReference = db.collection("drugs")
+                        .document(ids.get(spinnerDrug.getSelectedItemPosition()));
+                documentReference.delete()
+                        .addOnSuccessListener(aVoid -> {
+                            deleteButton.setEnabled(true);
+                            ids.remove(spinnerDrug.getSelectedItemPosition());
+                            categoryList.remove(spinnerDrug.getSelectedItemPosition());
+                            drugName.remove(spinnerDrug.getSelectedItemPosition());
+                            spinnerArrayCategoryAdapter.notifyDataSetChanged();
+                            spinnerArrayNameAdapter.notifyDataSetChanged();
+                            AlertDialogHelper.hideDialog();
+                            editTextDrugId.setText("");
+                            editTextQuantity.setText("");
+                            editTextExpiry.setText("");
+                            editTextPrice.setText("");
+                            editTextRestock.setText("");
+                            recreate();
+                            Toast.makeText(getApplicationContext(), "Drug deleted", Toast.LENGTH_LONG).show();
 
-                    }).addOnFailureListener(e -> {
-                deleteButton.setEnabled(true);
-                AlertDialogHelper.hideDialog();
-                Toast.makeText(getApplicationContext(), "Drug deleting Failed " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }).addOnFailureListener(e -> {
+                    deleteButton.setEnabled(true);
+                    AlertDialogHelper.hideDialog();
+                    Toast.makeText(getApplicationContext(), "Drug deleting Failed " + e.getMessage(), Toast.LENGTH_LONG).show();
 
-            });
+                });
+            }
         });
         builder.setNegativeButton("No", (dialogInterface, i) -> alertDialog.hide());
         alertDialog = builder.create();
